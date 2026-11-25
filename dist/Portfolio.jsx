@@ -21,6 +21,10 @@ import {Hero, Dock} from '../src/intro';
     ['Languages','Python, Java, C/C++, SQL'],['Tools','Git, GitHub, Copilot, Cursor, Proteus, Canva, Figma']
   ];
   const experienceGroups = [
+    {label:'Education', children:[
+      {value:'btech',label:'B.Tech · ECE',school:'Dr. B. C. Roy Engineering College',detail:'B.Tech in Electronics and Communication Engineering · 2023–2027 · Durgapur, West Bengal'},
+      {value:'school',label:'Class X & XII',school:'Sudhir Memorial Institute Liluah',detail:'Class X · 2020 and Class XII · 2022 · Howrah, West Bengal'}
+    ]},
     {label:'Internship & training', children:[
       {value:'ibm',label:'AICTE Edunet / IBM',detail:'Artificial Intelligence Virtual Intern · Remote · Jan–Feb 2025. During this one-month AICTE Edunet Foundation internship in collaboration with IBM, I prepared data, trained supervised learning models and evaluated their performance. I also explored IBM Watson and cloud deployment workflows.'},
       {value:'cttc',label:'CTTC Bhubaneswar',detail:'Embedded Systems Industrial Trainee · Bhubaneswar, Odisha · Jun–Jul 2024. I programmed PIC and Arduino microcontrollers, implemented UART, I2C and SPI communication modules, and tested circuits in Proteus.'}
@@ -30,10 +34,6 @@ import {Hero, Dock} from '../src/intro';
       {value:'code-for-change',label:'Code for Change 2.0',detail:'Hackathon'},
       {value:'hack4bengal',label:'Hack4Bengal',detail:'My team built and presented a working prototype within the hackathon deadline.'},
       {value:'graph-hacks',label:'Graph Hacks',detail:'Hackathon'}
-    ]},
-    {label:'Education', children:[
-      {value:'btech',label:'B.Tech · ECE',school:'Dr. B. C. Roy Engineering College',detail:'B.Tech in Electronics and Communication Engineering · 2023–2027 · Durgapur, West Bengal'},
-      {value:'school',label:'Class X & XII',school:'Sudhir Memorial Institute Liluah',detail:'Class X · 2020 and Class XII · 2022 · Howrah, West Bengal'}
     ]}
   ];
   const activities = [
@@ -182,7 +182,7 @@ function ExperienceMenu() {
   </div>;
 }
 function Activities(){return <section id="activities" className="p-section"><Title>Activities</Title><div className="p-badges">{activities.map(([name,detail])=><article key={name}><h3>{name}</h3><p>{detail}</p></article>)}</div></section>}
-function Engineering(){return <><section id="skills" className="p-section"><Title>Skills</Title><SkillsMenu/></section><section id="experience" className="p-section"><Title>Experience, training &amp; education</Title><ExperienceMenu/></section><section id="achievements" className="p-section"><Title>Achievements &amp; certifications</Title><div className="p-badges">{badges.map(([a,b])=><article key={a}><h3>{a}</h3><p>{b}</p></article>)}</div></section></>}
+function Engineering(){return <><section id="skills" className="p-section"><Title>Skills</Title><SkillsMenu/></section><section id="experience" className="p-section"><Title>Education, experience &amp; training</Title><ExperienceMenu/></section><section id="achievements" className="p-section"><Title>Achievements &amp; certifications</Title><div className="p-badges">{badges.map(([a,b])=><article key={a}><h3>{a}</h3><p>{b}</p></article>)}</div></section></>}
 function Portfolio(){
  const [feedback,setFeedback]=useState('');
  function compose(event){

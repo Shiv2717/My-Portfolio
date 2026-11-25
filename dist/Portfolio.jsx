@@ -134,10 +134,9 @@ function Projects(){
    {more.length > 0 && <details className="p-more"><summary>More projects</summary><ul>{more.map(([name,tag])=><li key={name}>{name}<span>{tag}</span></li>)}</ul></details>}
  </section>;
 }
-const skillMenuItems = skills.map(([text, technologies], index) => {
-  const file = 'images/clicks/tiles/' + ['001','016','031','046','061','076'][index] + '.webp';
-  return {text, marquee:technologies.split(', ').join(' · '), image:window.portfolioFiles?.[file] ?? file, controls:'skill-details'};
-});
+const skillMenuItems = skills.map(([text, technologies]) => ({
+  text, marquee:technologies.split(', ').join(' · ') + ' ·', controls:'skill-details'
+}));
 
 function SkillsMenu() {
   const [selected,setSelected] = useState(-1);

@@ -149,8 +149,15 @@ main > section:not(.cover) {
 .hero-profile :is(.profile-card__scrim,.profile-card__info,.profile-card__tile-rim){z-index:2}
 @media(max-height:485px){.hero-profile{inset:46px 12px 42px}.hero-profile .profile-card{width:clamp(185px,47dvh,230px)}.hero-profile .profile-card__tile{aspect-ratio:1.4}.hero-profile .profile-card__footer{padding:3px}}
 
-.skill-menu-stage {height:clamp(390px,74svh,600px);position:relative;border-block:1px solid #454149}
+main > #skills {
+  position:relative; display:flex; flex-direction:column; box-sizing:border-box;
+  width:100%; max-width:none; height:100vh; height:100dvh; margin:0; padding:0; border:0;
+  scroll-margin-top:-30px; background:#120f17;
+}
+#skills > h2 {position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);margin:0}
+.skill-menu-stage {flex:1;min-height:0;position:relative}
+.skill-menu-stage .flowing-menu__item {min-height:0}
 .skill-menu-stage .flowing-menu {display:block;width:100%;margin:0;padding:0}
-.skill-details:not([hidden]) {display:flex;align-items:center;flex-wrap:wrap;gap:12px 24px;padding:18px 0}
+.skill-details:not([hidden]) {display:flex;align-items:center;flex-wrap:wrap;gap:12px 24px;padding:12px clamp(18px,5vw,64px);max-height:35%;overflow:auto}
 .skill-details h3 {margin:0}
 @media(max-width:600px){.skill-menu-stage .flowing-menu__link{grid-template-columns:0 minmax(0,1fr) 0;gap:0}}

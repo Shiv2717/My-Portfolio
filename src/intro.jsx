@@ -1,17 +1,13 @@
-import LetterGlitch from './LetterGlitch';
 import ProfileCard from './ProfileCard';
 
 export function Hero() {
  return <section className="cover" aria-label="Introduction">
-   <div className="hero-glitch" aria-hidden="true">
-     <LetterGlitch glitchColors={['#ffffff', '#61dca3']} glitchAmount={0.5}
-       speed={1} flow={0.5} clickEffect="burst" density={0.95} />
-   </div>
    <div className="mast"><a href="#top" className="monogram" aria-label="Shivam Mishra home">sm.</a><span>Engineering &amp; photography</span><a href={window.portfolioFiles?.["resume.pdf"] ?? "resume.pdf"} download="Shivam-Mishra-Resume.pdf">Résumé <small>PDF</small></a></div>
    <div className="hero-profile">
      <ProfileCard name="Shivam Mishra" title="Electronics & Communication Engineering"
        handle="Shiv2717" status="Durgapur, India" statusColor="#d8b98c" contactText="Contact"
-       avatarUrl={window.portfolioFiles?.['images/hero-portrait.jpg'] ?? 'images/hero-portrait.jpg'}
+       avatarUrl={window.portfolioFiles?.['images/hero-cutout.png'] ?? 'images/hero-cutout.png'}
+       iconUrl={window.portfolioFiles?.['images/foil-mark.png'] ?? 'images/foil-mark.png'} backdropColor="#322e3c"
        holo={0.8} glare={0.5} tiltStrength={12} parallax={8} radius={16}
        enableTilt intro showUserInfo enableMobileTilt={false} theme="dark"
        onContactClick={() => {location.hash = 'contact'; document.getElementById('contact')?.scrollIntoView();}} />

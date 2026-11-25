@@ -45,3 +45,6 @@
 .spotlight-card__edge{padding:1px;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude}
 .p-links{display:flex;gap:1rem;margin-top:1rem}
 .p-links a{color:var(--p-accent);font-size:.92rem;text-underline-offset:.2em}
+
+#education .p-badges,#activities .p-badges{grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
+#education article p+p{margin-top:.6em;color:var(--muted)}

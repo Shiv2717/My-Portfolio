@@ -199,13 +199,18 @@ body:has(.photo-dialog[open]){overflow:hidden}
 }
 
 #music{background:#141315}
-.song-heading,.song-play{display:flex;align-items:center;justify-content:space-between;gap:1rem}
-.song-heading{flex-wrap:wrap;margin-bottom:2rem}.song-heading .p-title{margin:0}
-.song-heading a,.song-play b{color:var(--accent)}
-.song-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),320px));gap:2rem;justify-content:center}
-.song-grid article{min-width:0}
-.song-title{display:flex;align-items:flex-end;background:linear-gradient(transparent 45%,#08080be8)}
-.song-title h3{margin:0;padding:1.2rem;color:white;font-size:clamp(1.2rem,2vw,1.65rem);line-height:1.15}
-.song-back{box-sizing:border-box;height:100%;display:grid;align-content:center;gap:.6rem;padding:1.5rem;background:#2b2624;color:#f6eee2;text-align:center}
-.song-back strong{font:italic 2rem/1.1 Georgia,serif}
-.song-play{min-height:44px;padding:.5rem 0}.song-play b{white-space:nowrap}
+
+.playlist-stage{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:2rem;padding-block:1rem}
+.playlist-cover,.playlist-head{display:flex;align-items:center;gap:14px}
+.playlist-cover{align-items:end;justify-content:space-between;padding:24px;background:linear-gradient(transparent 36%,#08080bf2)}
+.playlist-stage h3{margin:0}.playlist-stage small{display:block;color:#c6c0bb}
+.playlist-cover b{border-radius:50%;background:white;color:#181719;padding:10px 14px}
+.playlist-panel{width:min(100%,390px);border:1px solid #635f62;background:linear-gradient(145deg,#17161b,#302e32);padding:18px;border-radius:16px}
+.playlist-head img{width:48px;height:48px;object-fit:cover;border-radius:7px}
+.playlist-head button{margin-left:auto;border:0;background:transparent;color:white;font-size:24px;width:44px;height:44px}
+.playlist-panel ol{list-style:none;margin:16px 0 0;padding:0}
+.playlist-panel li button{width:100%;display:flex;align-items:center;gap:16px;min-height:48px;padding:6px 10px;text-align:left;color:inherit;background:transparent;border:0;border-radius:6px}
+.playlist-panel li button:hover,.playlist-panel li button[aria-pressed=true]{background:#ffffff17}
+.playlist-panel li button span{width:1.2rem;color:var(--accent)}
+.playlist-player{width:min(100%,480px)}.playlist-player iframe{display:block;width:100%;height:auto;aspect-ratio:16/9;min-height:200px;border:0;border-radius:12px;background:#080808;margin-bottom:12px}
+@media(max-width:700px){.playlist-stage:has(.playlist-player){flex-direction:column-reverse}}

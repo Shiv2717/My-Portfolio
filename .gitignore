@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Static site includes authored source and photographic assets.
+!/dist/

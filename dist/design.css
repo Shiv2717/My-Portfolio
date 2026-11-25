@@ -199,14 +199,13 @@ body:has(.photo-dialog[open]){overflow:hidden}
 }
 
 #music{background:#141315}
-.record-shelf{display:flex;align-items:end;overflow-x:auto;padding:65px 12px 12px;isolation:isolate;scroll-padding:12px}
-.record-sleeve{position:relative;flex:1 0 54px;min-width:0;height:clamp(170px,23vw,310px);margin-right:-8px;border:1px solid #595153;border-radius:10px;background:#302c31;padding:0;overflow:hidden;transform:skewY(-5deg);transition:transform .3s,flex-grow .3s;box-shadow:-4px 2px 12px #0005}
-.record-sleeve:last-child{margin-right:0}
-.record-sleeve[aria-pressed=true]{flex-grow:3;transform:translateY(-32px);z-index:1}
-.record-sleeve img{width:100%;height:100%;object-fit:cover}
-.record-sleeve span{position:absolute;inset:auto 0 0;padding:36px 8px 12px;color:white;background:linear-gradient(transparent,#000d);font-weight:600}
-.record-controls{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin:20px 0}
-.record-controls div{margin-right:auto}.record-controls strong,.record-controls small{display:block}
-.record-controls a{border-bottom:1px solid #b29570;padding:10px 0}
-@media(max-width:600px){.record-sleeve{flex:0 0 76px}.record-sleeve[aria-pressed=true]{flex:0 0 150px}.record-controls div{width:100%}}
-@media(prefers-reduced-motion:reduce){.record-sleeve{transition:none}}
+.song-heading,.song-play{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.song-heading{flex-wrap:wrap;margin-bottom:2rem}.song-heading .p-title{margin:0}
+.song-heading a,.song-play b{color:var(--accent)}
+.song-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),320px));gap:2rem;justify-content:center}
+.song-grid article{min-width:0}
+.song-title{display:flex;align-items:flex-end;background:linear-gradient(transparent 45%,#08080be8)}
+.song-title h3{margin:0;padding:1.2rem;color:white;font-size:clamp(1.2rem,2vw,1.65rem);line-height:1.15}
+.song-back{box-sizing:border-box;height:100%;display:grid;align-content:center;gap:.6rem;padding:1.5rem;background:#2b2624;color:#f6eee2;text-align:center}
+.song-back strong{font:italic 2rem/1.1 Georgia,serif}
+.song-play{min-height:44px;padding:.5rem 0}.song-play b{white-space:nowrap}

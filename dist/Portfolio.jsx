@@ -30,11 +30,11 @@ import {Hero, Dock} from '../src/intro';
       {value:'code-for-change',label:'Code for Change 2.0',detail:'Hackathon'},
       {value:'hack4bengal',label:'Hack4Bengal',detail:'My team built and presented a working prototype within the hackathon deadline.'},
       {value:'graph-hacks',label:'Graph Hacks',detail:'Hackathon'}
+    ]},
+    {label:'Education', children:[
+      {value:'btech',label:'B.Tech · ECE',school:'Dr. B. C. Roy Engineering College',detail:'B.Tech in Electronics and Communication Engineering · 2023–2027 · Durgapur, West Bengal'},
+      {value:'school',label:'Class X & XII',school:'Sudhir Memorial Institute Liluah',detail:'Class X · 2020 and Class XII · 2022 · Howrah, West Bengal'}
     ]}
-  ];
-  const education = [
-    ['Dr. B. C. Roy Engineering College','B.Tech in Electronics and Communication Engineering · 2023–2027','Durgapur, West Bengal'],
-    ['Sudhir Memorial Institute Liluah','Class X · 2020 and Class XII · 2022','Howrah, West Bengal']
   ];
   const activities = [
     ['Hacktoberfest','Contributed open-source pull requests for three consecutive years.'],
@@ -177,13 +177,12 @@ function ExperienceMenu() {
       width={240} rowHeight={36} indent={40} trunk={14} radius={10} lineWidth={1.5}
       fontSize={14} drawDuration={400} foldDuration={300} onSelect={(_,item)=>setEntry(item)}/>
     <div className="experience-note" aria-live="polite">
-      <h3>{entry.label}</h3><p>{entry.detail}</p>
+      <h3>{entry.school ?? entry.label}</h3><p>{entry.detail}</p>
     </div>
   </div>;
 }
-function Education(){return <section id="education" className="p-section"><Title>Education</Title><div className="p-badges">{education.map(([school,qualification,location])=><article key={school}><h3>{school}</h3><p>{qualification}</p><p>{location}</p></article>)}</div></section>}
 function Activities(){return <section id="activities" className="p-section"><Title>Activities</Title><div className="p-badges">{activities.map(([name,detail])=><article key={name}><h3>{name}</h3><p>{detail}</p></article>)}</div></section>}
-function Engineering(){return <><section id="skills" className="p-section"><Title>Skills</Title><SkillsMenu/></section><section id="experience" className="p-section"><Title>Experience &amp; training</Title><ExperienceMenu/></section><section id="achievements" className="p-section"><Title>Achievements &amp; certifications</Title><div className="p-badges">{badges.map(([a,b])=><article key={a}><h3>{a}</h3><p>{b}</p></article>)}</div></section></>}
+function Engineering(){return <><section id="skills" className="p-section"><Title>Skills</Title><SkillsMenu/></section><section id="experience" className="p-section"><Title>Experience, training &amp; education</Title><ExperienceMenu/></section><section id="achievements" className="p-section"><Title>Achievements &amp; certifications</Title><div className="p-badges">{badges.map(([a,b])=><article key={a}><h3>{a}</h3><p>{b}</p></article>)}</div></section></>}
 function Portfolio(){
  const [feedback,setFeedback]=useState('');
  function compose(event){
@@ -192,6 +191,6 @@ function Portfolio(){
  location.href='mailto:mishrashivam2717@gmail.com?subject=Portfolio%20enquiry&body='+encodeURIComponent(data.get('message')+'\n\nReply to '+data.get('email'));
  setFeedback(' Send your draft from your email app.');
  }
- return <><a className="skip" href="#about">Skip introduction</a><Dock/><main id="top"><Hero/><section id="about" className="block"><div className="profile-lead"><div className="profile-copy"><span className="over">Profile</span><h2>The person behind<br/><i>the projects.</i></h2><p className="bio-intro">I build across hardware and software, and photograph the world in between.</p></div><img className="profile-portrait" src={window.portfolioFiles?.["images/profile-portrait.jpg"] ?? "images/profile-portrait.jpg"} alt="Shivam Mishra" decoding="async" /></div><div className="bio"><p>I’m Shivam Kumar Mishra, an electronics and communication engineering student in Durgapur. I build connected devices and full-stack applications, and I’m interested in embedded systems and software roles.</p><p>Outside engineering, I hold an NCC Major rank and a Karate Black Belt. Photography gives me a reason to slow down and look closer.</p></div><small>English &nbsp; / &nbsp; Hindi &nbsp; / &nbsp; Bengali</small></section><Education/><Projects/><Engineering/><Activities/><section id="photos" className="block"><span className="over">BEHIND THE LENS</span><h2>Photography<span>.</span></h2><GalleryLink/></section><section id="contact" className="block"><span className="over">CONTACT</span><h2>Get in touch<span>.</span></h2><p className="muted"><a href="mailto:mishrashivam2717@gmail.com">mishrashivam2717@gmail.com</a> · <a href="https://github.com/Shiv2717">GitHub</a> · <a href="https://www.linkedin.com/in/shivam-mishra-shivam2717">LinkedIn</a></p><form onSubmit={compose}><label>Your email<input type="email" name="email" required/></label><label>Message<textarea name="message" required rows="4"></textarea></label><button className="primary">Open email draft</button><output aria-live="polite">{feedback}</output></form></section></main><footer>Shivam Mishra <a href="#top">Back to top ↑</a></footer></>
+ return <><a className="skip" href="#about">Skip introduction</a><Dock/><main id="top"><Hero/><section id="about" className="block"><div className="profile-lead"><div className="profile-copy"><span className="over">Profile</span><h2>The person behind<br/><i>the projects.</i></h2><p className="bio-intro">I build across hardware and software, and photograph the world in between.</p></div><img className="profile-portrait" src={window.portfolioFiles?.["images/profile-portrait.jpg"] ?? "images/profile-portrait.jpg"} alt="Shivam Mishra" decoding="async" /></div><div className="bio"><p>I’m Shivam Kumar Mishra, an electronics and communication engineering student in Durgapur. I build connected devices and full-stack applications, and I’m interested in embedded systems and software roles.</p><p>Outside engineering, I hold an NCC Major rank and a Karate Black Belt. Photography gives me a reason to slow down and look closer.</p></div><small>English &nbsp; / &nbsp; Hindi &nbsp; / &nbsp; Bengali</small></section><Projects/><Engineering/><Activities/><section id="photos" className="block"><span className="over">BEHIND THE LENS</span><h2>Photography<span>.</span></h2><GalleryLink/></section><section id="contact" className="block"><span className="over">CONTACT</span><h2>Get in touch<span>.</span></h2><p className="muted"><a href="mailto:mishrashivam2717@gmail.com">mishrashivam2717@gmail.com</a> · <a href="https://github.com/Shiv2717">GitHub</a> · <a href="https://www.linkedin.com/in/shivam-mishra-shivam2717">LinkedIn</a></p><form onSubmit={compose}><label>Your email<input type="email" name="email" required/></label><label>Message<textarea name="message" required rows="4"></textarea></label><button className="primary">Open email draft</button><output aria-live="polite">{feedback}</output></form></section></main><footer>Shivam Mishra <a href="#top">Back to top ↑</a></footer></>
 }
 ReactDOM.createRoot(document.getElementById('root')).render(new URLSearchParams(location.search).get("gallery") === "photography" ? <PhotographyPage/> : <ClickSpark sparkColor="#dbad67"><Portfolio/></ClickSpark>);

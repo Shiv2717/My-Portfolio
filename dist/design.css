@@ -170,3 +170,21 @@ main > #skills {
 .experience-note{padding:12px 0 12px 24px;border-left:2px solid #c9a776}
 .experience-note h3{margin:0 0 8px}.experience-note p{margin:0;max-width:48ch}
 @media(max-width:580px){.experience-browser{grid-template-columns:1fr;gap:20px}}
+
+main>#work,main>#photos{padding:0;min-height:100svh;display:flex;flex-direction:column}
+#work{background:#110e17}
+#work>.p-title,#work>.p-tabs,#work>.p-more{margin-inline:clamp(1rem,5vw,5rem)}
+#work>.p-title{margin-top:clamp(1.5rem,4vh,3rem)}
+#work>.p-tabs{margin-bottom:0}
+#work .project-folder{flex:1;border-radius:0;min-height:clamp(330px,56svh,680px)}
+#work>.p-more{padding-bottom:1rem}
+#photos{position:relative;isolation:isolate;justify-content:flex-start;background:#111}
+#photos>.over,#photos>h2{position:relative;z-index:1;pointer-events:none;margin-left:clamp(1rem,5vw,5rem)}
+#photos>.over{margin-top:clamp(2rem,7svh,5rem);color:#fff}
+#photos>h2{margin-top:.5rem;color:white}
+#photos .dome-entry{position:absolute;inset:0;display:grid;max-width:none;margin:0;border:0;border-radius:0}
+#photos .dome-strip{height:100%;min-height:0}
+#photos .dome-strip img{height:100%;min-height:0}
+#photos .dome-entry::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,#000a,transparent 38%,transparent 62%,#000c);pointer-events:none}
+#photos .dome-callout{position:absolute;z-index:1;bottom:clamp(5rem,10svh,8rem);left:clamp(1rem,5vw,5rem);align-items:flex-start;flex-direction:column;padding:0;color:#fff}
+@media(max-width:600px){#photos .dome-strip{grid-template-columns:1fr 1fr;grid-template-rows:2fr 1fr}#photos .dome-strip img:first-child{grid-column:1/-1}}

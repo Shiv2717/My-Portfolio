@@ -20,7 +20,7 @@ function pageUrl(gallery) {
 
 export function GalleryLink() {
   return <a className="dome-entry" href={pageUrl(true)} target="_blank" rel="noopener">
-    <div className="dome-strip" aria-hidden="true">{[0, Math.floor(images.length / 2), images.length - 1].map(i=><img key={i} src={images[i].src} alt="" loading="lazy"/>)}</div>
+    <div className="dome-strip" aria-hidden="true">{[0, Math.floor(images.length / 2), images.length - 1].map(i=><img key={i} src={images[i].fullSrc} alt="" loading="lazy"/>)}</div>
     <span className="dome-callout"><strong>Open photo gallery</strong><small>Color dome · Opens in a new tab</small></span>
   </a>;
 }

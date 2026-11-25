@@ -1,15 +1,16 @@
 import TiltedCard, { TiltedCardLayer } from './TiltedCard';
 
 const songs = [
-  ['Training Season (London Sessions)', 'Dua Lipa', 'nKOecvbrAKw'],
-  ['São Paulo', 'The Weeknd & Anitta', '2kjolTLZ_Mg'],
-  ['This Party Getting Hot', 'Jazzy B feat. Honey Singh', 'ZuoIW4aINak'],
   ['Enter Sandman', 'Metallica', 'CHIWNDAwTqQ'],
-  ['WE ON GO', 'BIA', 'hx50R-jMAhQ'],
-  ['Pass That Dutch', 'Missy Elliott', 'TtdFlf333c4'],
-  ['SICKO MODE', 'Travis Scott', 'NQbkGDoD7B0'],
-  ['Bohemian Rhapsody (Digital Remaster)', 'Queen', 'fJ9rUzIMcZQ'],
-  ['War Pigs', 'Black Sabbath', 'LQUXuQ6Zd9w']
+  ['Highway to Hell', 'AC/DC', 'l482T0yNkeo'],
+  ['War Pigs', 'Black Sabbath', 'LQUXuQ6Zd9w'],
+  ['Loser', 'Tame Impala', 's3a4OQR-10M'],
+  ['The Less I Know the Better', 'Tame Impala', '2SUwOgmvzK4'],
+  ['Sunflower', 'Post Malone & Swae Lee', 'ApXoWvfEYVU'],
+  ['Old Town Road', 'Lil Nas X', '9YpvNgCSaCU'],
+  ['Die for You', 'The Weeknd', 'RpyN9pFXUCg'],
+  ['I Wanna Be Yours', 'Arctic Monkeys', 'nyuo9-OjNNg'],
+  ['Apocalypse', 'Cigarettes After Sex', 'sElE_BfQ67s']
 ];
 
 export default function FavoriteSongs() {
@@ -33,10 +34,10 @@ export default function FavoriteSongs() {
         style={{aspectRatio:'1'}} rotateAmplitude={12} glare={0.5} shadow={0.5} gyroscope={false}
         showTooltip={false} onClick={()=>setOpen(true)}>
         <TiltedCardLayer depth={30} className="playlist-cover">
-          <div><h3>Favorite songs</h3><small>Shivam Mishra · 9 tracks</small></div><b aria-hidden="true">▶</b>
+          <div><h3>Favorite songs</h3><small>Shivam Mishra · {songs.length} tracks</small></div><b aria-hidden="true">▶</b>
         </TiltedCardLayer>
       </TiltedCard> : <div className="playlist-panel">
-        <div className="playlist-head"><img src={cover} alt=""/><div><strong>Favorite songs</strong><small>Shivam Mishra · 9 tracks</small></div>
+        <div className="playlist-head"><img src={cover} alt=""/><div><strong>Favorite songs</strong><small>Shivam Mishra · {songs.length} tracks</small></div>
           <button ref={closeRef} onClick={closePlaylist} aria-label="Close playlist">×</button>
         </div>
         <ol>{songs.map(([title, artist, id], i)=><li key={id}>

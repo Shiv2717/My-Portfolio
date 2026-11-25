@@ -171,9 +171,9 @@ function SkillsMenu() {
   </>;
 }
 function ExperienceMenu() {
-  const [entry,setEntry] = useState(experienceGroups[0].children[0]);
+  const [entry,setEntry] = useState(() => experienceGroups[0].children.find(item => item.value === 'school'));
   return <div className="experience-browser">
-    <BranchedMenu items={experienceGroups} defaultOpen={[0]} defaultActive={entry.value}
+    <BranchedMenu items={experienceGroups} defaultOpen={experienceGroups.map((_, index) => index)} defaultActive={entry.value}
       width={240} rowHeight={36} indent={40} trunk={14} radius={10} lineWidth={1.5}
       fontSize={14} drawDuration={400} foldDuration={300} onSelect={(_,item)=>setEntry(item)}/>
     <div className="experience-note" aria-live="polite">

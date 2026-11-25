@@ -148,3 +148,9 @@ main > section:not(.cover) {
 .hero-profile .profile-card__holo {z-index:1;opacity:.22;pointer-events:none}
 .hero-profile :is(.profile-card__scrim,.profile-card__info,.profile-card__tile-rim){z-index:2}
 @media(max-height:485px){.hero-profile{inset:46px 12px 42px}.hero-profile .profile-card{width:clamp(185px,47dvh,230px)}.hero-profile .profile-card__tile{aspect-ratio:1.4}.hero-profile .profile-card__footer{padding:3px}}
+
+.skill-menu-stage {height:clamp(390px,74svh,600px);position:relative;border-block:1px solid #454149}
+.skill-menu-stage .flowing-menu {display:block;width:100%;margin:0;padding:0}
+.skill-details:not([hidden]) {display:flex;align-items:center;flex-wrap:wrap;gap:12px 24px;padding:18px 0}
+.skill-details h3 {margin:0}
+@media(max-width:600px){.skill-menu-stage .flowing-menu__link{grid-template-columns:0 minmax(0,1fr) 0;gap:0}}

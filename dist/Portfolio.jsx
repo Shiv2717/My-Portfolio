@@ -1,3 +1,4 @@
+import FlowingMenu from '../src/FlowingMenu';
 import Folder from '../src/Folder';
 import {GalleryLink,PhotographyPage} from '../src/Photography';
 import {Hero, Dock} from '../src/intro';
@@ -133,16 +134,26 @@ function Projects(){
    {more.length > 0 && <details className="p-more"><summary>More projects</summary><ul>{more.map(([name,tag])=><li key={name}>{name}<span>{tag}</span></li>)}</ul></details>}
  </section>;
 }
-function SkillCube({name,items}) {
- function tilt(event) {
-  const box=event.currentTarget, rect=box.getBoundingClientRect();
-  box.style.setProperty('--yaw', (9*(event.clientX-rect.left)/rect.width-4.5)+'deg');
-  box.style.setProperty('--pitch', (6-10*(event.clientY-rect.top)/rect.height)+'deg');
- }
- function reset(event) {event.currentTarget.removeAttribute('style')}
- return <div className="cube-stage" onPointerMove={tilt} onPointerDown={tilt} onPointerLeave={reset} onPointerCancel={reset} onPointerUp={reset}><article className="skill-solid"><div className="skill-face"><h3>{name}</h3><Chips items={items.split(', ')}/></div></article></div>
+const skillMenuItems = skills.map(([text, technologies], index) => {
+  const file = 'images/clicks/tiles/' + ['001','016','031','046','061','076'][index] + '.webp';
+  return {text, marquee:technologies.split(', ').join(' · '), image:window.portfolioFiles?.[file] ?? file, controls:'skill-details'};
+});
+
+function SkillsMenu() {
+  const [selected,setSelected] = useState(-1);
+  return <>
+    <div className="skill-menu-stage">
+      <FlowingMenu items={skillMenuItems} speed={60} stretch={0.6} magnet={0.25}
+        followCursor={0.4} textColor="#ffffff" bgColor="#120F17" marqueeBgColor="#ffffff"
+        marqueeTextColor="#120F17" activeIndex={selected} ariaLabel="Technical skills"
+        onItemClick={(_,index)=>setSelected(current=>current === index ? -1 : index)}/>
+    </div>
+    <div id="skill-details" className="skill-details" hidden={selected < 0} aria-live="polite">
+      {selected >= 0 && <><h3>{skills[selected][0]}</h3><Chips items={skills[selected][1].split(', ')}/></>}
+    </div>
+  </>;
 }
-function Engineering(){return <><section id="skills" className="p-section"><Title>Skills</Title><div className="p-skills">{skills.map(([name,items])=><SkillCube key={name} name={name} items={items}/>)}</div></section><section id="experience" className="p-section"><Title>Experience &amp; training</Title><ol className="p-timeline">{timeline.map(([a,b])=><li key={a}><h3>{a}</h3><p>{b}</p></li>)}</ol></section><section id="achievements" className="p-section"><Title>Achievements &amp; certifications</Title><div className="p-badges">{badges.map(([a,b])=><article key={a}><h3>{a}</h3><p>{b}</p></article>)}</div></section></>}
+function Engineering(){return <><section id="skills" className="p-section"><Title>Skills</Title><SkillsMenu/></section><section id="experience" className="p-section"><Title>Experience &amp; training</Title><ol className="p-timeline">{timeline.map(([a,b])=><li key={a}><h3>{a}</h3><p>{b}</p></li>)}</ol></section><section id="achievements" className="p-section"><Title>Achievements &amp; certifications</Title><div className="p-badges">{badges.map(([a,b])=><article key={a}><h3>{a}</h3><p>{b}</p></article>)}</div></section></>}
 function Portfolio(){
  const [feedback,setFeedback]=useState('');
  function compose(event){

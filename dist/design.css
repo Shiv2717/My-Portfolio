@@ -234,3 +234,9 @@ main>#contact{background:#100e17;padding-block:clamp(3rem,8vw,8rem)}
 #contact :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .contact-form output:empty{display:none}
 @media(max-width:760px){.contact-panel{grid-template-columns:1fr}.contact-form{border-left:0;border-top:1px solid #453e48}}
+
+.signal-footer{position:relative;display:grid;place-items:center;isolation:isolate;max-width:none;padding:1rem 0 3.75rem;background:radial-gradient(ellipse at center,#211b2c,#111015 72%)}
+.footer-map{display:block;width:min(72%,660px);height:auto;pointer-events:none}
+.signal-footer-links{position:absolute;inset:0 7% auto;display:flex;justify-content:space-between;align-items:center;padding-top:1.5rem;color:#f5f2ed}
+.signal-footer-links a{padding:.5rem;text-underline-offset:4px}.signal-footer-links a:hover{text-decoration:underline}
+@media(max-width:700px){.signal-footer{padding-top:4.5rem}.footer-map{width:94%}.signal-footer-links{inset-inline:5%}}

@@ -216,3 +216,21 @@ body:has(.photo-dialog[open]){overflow:hidden}
 .playlist-panel li button span{width:1.2rem;color:var(--accent)}
 .playlist-player{width:min(100%,480px)}.playlist-player iframe{display:block;width:100%;height:auto;aspect-ratio:16/9;min-height:200px;border:0;border-radius:12px;background:#080808;margin-bottom:12px}
 @media(max-width:700px){.playlist-stage:has(.playlist-player){flex-direction:column-reverse}}
+
+main>#contact{background:#100e17;padding-block:clamp(3rem,8vw,8rem)}
+.contact-panel{display:grid;grid-template-columns:1fr 1fr;border:1px solid #504953;border-radius:24px;background:#1b1820;overflow:hidden}
+.contact-intro,.contact-form{padding:clamp(24px,4vw,64px);min-width:0}
+.contact-intro{position:relative;isolation:isolate;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;overflow:hidden;background:radial-gradient(ellipse at 80% 0%,#413646,transparent 70%),#201d25}
+.contact-foil{position:absolute;z-index:-1;top:-65px;right:-60px;width:240px;opacity:.19;pointer-events:none}
+#contact h2{margin:0 0 1.1rem;line-height:1.04}#contact h2 i{font-family:Georgia,serif;font-weight:400;color:#e5b778}
+.contact-address{overflow-wrap:anywhere;text-decoration:underline;text-decoration-color:#756354;text-underline-offset:5px}
+.contact-socials{display:flex;gap:10px;margin-top:2rem;flex-wrap:wrap}
+.contact-socials a{border:1px solid #625966;border-radius:99px;padding:9px 16px;font-size:.9rem}
+.contact-form{margin:0;max-width:none;display:grid;gap:1rem;align-content:center;border-left:1px solid #453e48}
+.contact-form label{margin:0;display:grid;gap:7px}
+.contact-form :is(input,textarea){width:100%;min-width:0;border:1px solid #58505d;border-radius:9px;background:#141219;color:#f5f2ed;padding:12px}
+.contact-form textarea{resize:vertical}
+.contact-form .primary{justify-self:start;border-radius:30px}.contact-form .primary span{margin-left:12px}
+#contact :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.contact-form output:empty{display:none}
+@media(max-width:760px){.contact-panel{grid-template-columns:1fr}.contact-form{border-left:0;border-top:1px solid #453e48}}

@@ -11,7 +11,7 @@ export function Hero() {
    <div className="hero-profile">
      <ProfileCard name="Shivam Mishra" title="Electronics & Communication Engineering"
        handle="Shiv2717" status="Durgapur, India" statusColor="#d8b98c" contactText="Contact"
-       avatarUrl={window.portfolioFiles?.['images/profile-portrait.jpg'] ?? 'images/profile-portrait.jpg'}
+       avatarUrl={window.portfolioFiles?.['images/hero-portrait.jpg'] ?? 'images/hero-portrait.jpg'}
        holo={0.8} glare={0.5} tiltStrength={12} parallax={8} radius={16}
        enableTilt intro showUserInfo enableMobileTilt={false} theme="dark"
        onContactClick={() => {location.hash = 'contact'; document.getElementById('contact')?.scrollIntoView();}} />

@@ -21,7 +21,7 @@ await writeFile('dist/portfolio.js', app);
 await writeFile('dist/three-license.txt', await readFile('node_modules/three/LICENSE'));
 
 const embedded = {};
-const files = ['resume.pdf','images/profile-portrait.jpg',
+const files = ['resume.pdf','images/profile-portrait.jpg','images/hero-portrait.jpg',
   ...photoNames.flatMap(name => ['images/clicks/' + name, 'images/clicks/tiles/' + name])];
 const mime = {jpg:'image/jpeg',png:'image/png',webp:'image/webp',pdf:'application/pdf'};
 for (const name of files) {

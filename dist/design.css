@@ -154,7 +154,11 @@ main > #skills {
   width:100%; max-width:none; height:100vh; height:100dvh; margin:0; padding:0; border:0;
   scroll-margin-top:-30px; background:#120f17;
 }
-#skills > h2 {position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);margin:0}
+#skills > h2 {
+  flex:none; margin:0; padding:clamp(12px,2vh,24px) clamp(20px,4vw,64px);
+  font-size:clamp(2rem,4vw,3.5rem); line-height:1.1;
+  border-bottom:1px solid #ffffff24; animation:none;
+}
 .skill-menu-stage {flex:1;min-height:0;position:relative}
 .skill-menu-stage .flowing-menu__item {min-height:0}
 .skill-menu-stage .flowing-menu {display:block;width:100%;margin:0;padding:0}

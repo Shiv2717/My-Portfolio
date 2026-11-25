@@ -1,3 +1,4 @@
+import BranchedMenu from '../src/BranchedMenu';
 import FlowingMenu from '../src/FlowingMenu';
 import Folder from '../src/Folder';
 import {GalleryLink,PhotographyPage} from '../src/Photography';
@@ -19,9 +20,16 @@ import {Hero, Dock} from '../src/intro';
     ['Web','React, HTML, CSS, JavaScript, Firebase'],['AI/ML','PyTorch, Hugging Face'],
     ['Languages','Python, Java, C/C++'],['Tools','Git, GitHub, Copilot, Cursor']
   ];
-  const timeline = [
-    ['IBM','Virtual internship'],['CTTC Bhubaneswar','Industrial training in embedded protocols and VLSI'],
-    ['Smart India Hackathon','Selected participant'],['Code for Change 2.0','Hackathon'],['Graph Hacks','Hackathon']
+  const experienceGroups = [
+    {label:'Internship & training', children:[
+      {value:'ibm',label:'IBM',detail:'Virtual internship'},
+      {value:'cttc',label:'CTTC Bhubaneswar',detail:'Industrial training in embedded protocols and VLSI'}
+    ]},
+    {label:'Hackathons', children:[
+      {value:'sih',label:'Smart India Hackathon',detail:'Selected participant'},
+      {value:'code-for-change',label:'Code for Change 2.0',detail:'Hackathon'},
+      {value:'graph-hacks',label:'Graph Hacks',detail:'Hackathon'}
+    ]}
   ];
   const badges = [['NCC','Major rank'],['Karate','Black Belt'],['NIELIT','VLSI & Embedded'],['NPTEL','Python'],['GeeksforGeeks','Java'],['CSCoE / WEBEL','Cyber Security'],['TCS iON','Certification']];
   function renderPreview(id, canvas) {
@@ -152,7 +160,18 @@ function SkillsMenu() {
     </div>
   </>;
 }
-function Engineering(){return <><section id="skills" className="p-section"><Title>Skills</Title><SkillsMenu/></section><section id="experience" className="p-section"><Title>Experience &amp; training</Title><ol className="p-timeline">{timeline.map(([a,b])=><li key={a}><h3>{a}</h3><p>{b}</p></li>)}</ol></section><section id="achievements" className="p-section"><Title>Achievements &amp; certifications</Title><div className="p-badges">{badges.map(([a,b])=><article key={a}><h3>{a}</h3><p>{b}</p></article>)}</div></section></>}
+function ExperienceMenu() {
+  const [entry,setEntry] = useState(experienceGroups[0].children[0]);
+  return <div className="experience-browser">
+    <BranchedMenu items={experienceGroups} defaultOpen={[0]} defaultActive={entry.value}
+      width={240} rowHeight={36} indent={40} trunk={14} radius={10} lineWidth={1.5}
+      fontSize={14} drawDuration={400} foldDuration={300} onSelect={(_,item)=>setEntry(item)}/>
+    <div className="experience-note" aria-live="polite">
+      <h3>{entry.label}</h3><p>{entry.detail}</p>
+    </div>
+  </div>;
+}
+function Engineering(){return <><section id="skills" className="p-section"><Title>Skills</Title><SkillsMenu/></section><section id="experience" className="p-section"><Title>Experience &amp; training</Title><ExperienceMenu/></section><section id="achievements" className="p-section"><Title>Achievements &amp; certifications</Title><div className="p-badges">{badges.map(([a,b])=><article key={a}><h3>{a}</h3><p>{b}</p></article>)}</div></section></>}
 function Portfolio(){
  const [feedback,setFeedback]=useState('');
  function compose(event){

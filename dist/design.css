@@ -165,3 +165,8 @@ main > #skills {
 .skill-details:not([hidden]) {display:flex;align-items:center;flex-wrap:wrap;gap:12px 24px;padding:12px clamp(18px,5vw,64px);max-height:35%;overflow:auto}
 .skill-details h3 {margin:0}
 @media(max-width:600px){.skill-menu-stage .flowing-menu__link{grid-template-columns:0 minmax(0,1fr) 0;gap:0}}
+.experience-browser{display:grid;grid-template-columns:minmax(0,240px) minmax(0,1fr);gap:clamp(24px,5vw,80px);align-items:start}
+.experience-browser .branched-menu{align-items:stretch;width:100%;gap:0}
+.experience-note{padding:12px 0 12px 24px;border-left:2px solid #c9a776}
+.experience-note h3{margin:0 0 8px}.experience-note p{margin:0;max-width:48ch}
+@media(max-width:580px){.experience-browser{grid-template-columns:1fr;gap:20px}}

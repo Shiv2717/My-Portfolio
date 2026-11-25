@@ -1,3 +1,4 @@
+import Topography from '../src/Topography';
 import SignalMap from '../src/SignalMap';
 import FavoriteSongs from '../src/FavoriteSongs';
 import BranchedMenu from '../src/BranchedMenu';
@@ -194,6 +195,11 @@ function Contact(){
  setFeedback(' Send your draft from your email app.');
  }
  return <section id="contact" className="block" aria-labelledby="contact-heading">
+   <div className="contact-terrain" aria-hidden="true">
+     <Topography color="#4f7cff" lineCount={22} lineWidth={1.2} elevation={1}
+       foreground={0.2} tilt={32} speed={0.25} direction="forward" glow={0.6}
+       depthOfField={0.4} fog={0.35} hoverEffect="lift" clickEffect="pulse"/>
+   </div>
    <div className="contact-panel">
      <div className="contact-intro">
        <img className="contact-foil" src={window.portfolioFiles?.['images/foil-mark.png'] ?? 'images/foil-mark.png'} alt=""/>

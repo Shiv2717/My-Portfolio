@@ -1,5 +1,5 @@
 import LetterGlitch from './LetterGlitch';
-import Lanyard from './Lanyard';
+import ProfileCard from './ProfileCard';
 
 export function Hero() {
  return <section className="cover" aria-label="Introduction">
@@ -8,7 +8,14 @@ export function Hero() {
        speed={1} flow={0.5} clickEffect="burst" density={0.95} />
    </div>
    <div className="mast"><a href="#top" className="monogram" aria-label="Shivam Mishra home">sm.</a><span>Engineering &amp; photography</span><a href={window.portfolioFiles?.["resume.pdf"] ?? "resume.pdf"} download="Shivam-Mishra-Resume.pdf">Résumé <small>PDF</small></a></div>
-   <div className="lanyard-stage"><Lanyard intro={false} size={0.56} strapLength={0.42} damping={0.8} breeze={0.15} frontImage="card-front.png" backImage="card-back.png" strapImage="band.png" /></div>
+   <div className="hero-profile">
+     <ProfileCard name="Shivam Mishra" title="Electronics & Communication Engineering"
+       handle="Shiv2717" status="Durgapur, India" statusColor="#d8b98c" contactText="Contact"
+       avatarUrl={window.portfolioFiles?.['images/profile-portrait.jpg'] ?? 'images/profile-portrait.jpg'}
+       holo={0.8} glare={0.5} tiltStrength={12} parallax={8} radius={16}
+       enableTilt intro showUserInfo enableMobileTilt={false} theme="dark"
+       onContactClick={() => {location.hash = 'contact'; document.getElementById('contact')?.scrollIntoView();}} />
+   </div>
    <div className="cover-bottom"><h1 className="hero-heading">Shivam Mishra — Engineering and photography</h1><a href="#about">Meet Shivam <span aria-hidden="true">↓</span></a></div>
  </section>
 }

@@ -6,7 +6,7 @@ const reactGlobal = {
   setup(builder) {
     builder.onResolve({ filter: /^react$/ }, () => ({ path: 'react', namespace: 'existing-react' }));
     builder.onLoad({ filter: /.*/, namespace: 'existing-react' }, () => ({
-      contents: 'export default window.React; export const {Children,isValidElement,useLayoutEffect,useMemo,useEffect,useRef,useCallback,useState} = window.React;',
+      contents: 'export default window.React; export const {memo,Children,isValidElement,useLayoutEffect,useMemo,useEffect,useRef,useCallback,useState} = window.React;',
     }));
   },
 };
@@ -21,7 +21,7 @@ await writeFile('dist/portfolio.js', app);
 await writeFile('dist/three-license.txt', await readFile('node_modules/three/LICENSE'));
 
 const embedded = {};
-const files = ['card-front.png','card-back.png','band.png','resume.pdf','images/profile-portrait.jpg',
+const files = ['resume.pdf','images/profile-portrait.jpg',
   ...photoNames.flatMap(name => ['images/clicks/' + name, 'images/clicks/tiles/' + name])];
 const mime = {jpg:'image/jpeg',png:'image/png',webp:'image/webp',pdf:'application/pdf'};
 for (const name of files) {

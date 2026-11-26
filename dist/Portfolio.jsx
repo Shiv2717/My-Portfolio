@@ -182,8 +182,26 @@ function ExperienceMenu() {
     </div>
   </div>;
 }
-function Activities(){return <section id="activities" className="p-section"><Title>Activities</Title><div className="p-badges">{activities.map(([name,detail])=><article key={name}><h3>{name}</h3><p>{detail}</p></article>)}</div></section>}
-function Engineering(){return <><section id="skills" className="p-section"><Title>Skills</Title><SkillsMenu/></section><section id="experience" className="p-section"><Title>Education, experience &amp; training</Title><ExperienceMenu/></section><section id="achievements" className="p-section"><Title>Achievements &amp; certifications</Title><div className="p-badges">{badges.map(([a,b])=><article key={a}><h3>{a}</h3><p>{b}</p></article>)}</div></section></>}
+function Accordion({items, section}) {
+  const [expanded, setExpanded] = useState(null);
+  return <div className="portfolio-accordion">
+    {items.map(([title, detail], index) => {
+      const open = expanded === title;
+      const panelId = section + '-detail-' + index;
+      return <article key={title}>
+        <h3><button type="button" aria-expanded={open} aria-controls={panelId}
+          onClick={() => setExpanded(open ? null : title)}>
+          {title}<span className="accordion-chevron" aria-hidden="true"/>
+        </button></h3>
+        <div id={panelId} className="accordion-panel" data-open={open} aria-hidden={!open}>
+          <div><p>{detail}</p></div>
+        </div>
+      </article>;
+    })}
+  </div>;
+}
+function Activities(){return <section id="activities" className="p-section"><Title>Activities</Title><Accordion items={activities} section="activities"/></section>}
+function Engineering(){return <><section id="skills" className="p-section"><Title>Skills</Title><SkillsMenu/></section><section id="experience" className="p-section"><Title>Education, experience &amp; training</Title><ExperienceMenu/></section><section id="achievements" className="p-section"><Title>Achievements &amp; certifications</Title><Accordion items={badges} section="achievements"/></section></>}
 function Contact(){
  const [feedback,setFeedback]=useState('');
  function compose(event){

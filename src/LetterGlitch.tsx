@@ -195,18 +195,38 @@ function drawCanvasFallback(container: HTMLElement, settings: Settings) {
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   const size = settings.fontSize;
   const step = Math.ceil(size * 1.35);
-  let cells: { x: number; y: number; char: string; alpha: number; hot: boolean }[] = [];
+  type Cell = { x: number; y: number; char: string; alpha: number };
+  let cells: Cell[] = [];
+  const changes = new Map<Cell, { next: string; start: number }>();
   let visible = true;
-  let timer = 0;
+  let frame = 0;
+  let previous = 0;
+  let budget = 0;
   const glyph = () => settings.characters[Math.floor(Math.random() * settings.characters.length)];
-  function paint() {
-    ctx!.clearRect(0, 0, canvas.width, canvas.height);
-    for (const cell of cells) {
-      ctx!.fillStyle = cell.hot ? settings.colors[settings.colors.length - 1] : settings.baseColor;
-      ctx!.globalAlpha = cell.hot ? 0.66 : cell.alpha;
-      ctx!.fillText(cell.char, cell.x, cell.y);
+  function letter(cell: Cell, char: string, alpha: number, color: string) {
+    ctx!.globalAlpha = alpha;
+    ctx!.fillStyle = color;
+    ctx!.fillText(char, cell.x, cell.y);
+  }
+  function animate(now: number) {
+    const dt = previous ? Math.min(now - previous, 60) : 0;
+    previous = now;
+    budget += dt * cells.length * settings.speed * settings.glitchAmount / 8000;
+    while (budget >= 1 && cells.length) {
+      const cell = cells[Math.floor(Math.random()*cells.length)];
+      if (!changes.has(cell)) changes.set(cell, { next: glyph(), start: now });
+      budget--;
     }
-    ctx!.globalAlpha = 1;
+    for (const [cell, change] of changes) {
+      const t = clamp((now - change.start) / 850, 0, 1);
+      const blend = smoother(t);
+      ctx!.clearRect(cell.x-1, cell.y-size, step, step);
+      letter(cell, cell.char, cell.alpha*(1-blend), settings.baseColor);
+      letter(cell, change.next, cell.alpha*blend, settings.baseColor);
+      letter(cell, change.next, 0.32*Math.sin(Math.PI*t)**2, settings.colors[settings.colors.length-1]);
+      if (t >= 1) { cell.char = change.next; changes.delete(cell); }
+    }
+    frame = requestAnimationFrame(animate);
   }
   function resize() {
     const bounds = container.getBoundingClientRect();
@@ -215,29 +235,29 @@ function drawCanvasFallback(container: HTMLElement, settings: Settings) {
     canvas.height = Math.round(bounds.height * ratio);
     ctx!.setTransform(ratio, 0, 0, ratio, 0, 0);
     ctx!.font = size + 'px ' + settings.fontFamily;
-    cells = [];
+    cells = []; changes.clear();
     for (let y = size; y < bounds.height + size; y += step)
       for (let x = 4; x < bounds.width; x += step)
         if (Math.random() < settings.density)
-          cells.push({x, y, char: glyph(), alpha: 0.08 + Math.random()*0.16, hot: Math.random()<0.009});
-    paint();
+          cells.push({x, y, char: glyph(), alpha: 0.08 + Math.random()*0.16});
+    for (const cell of cells) letter(cell, cell.char, cell.alpha, settings.baseColor);
   }
   function sync() {
-    window.clearInterval(timer);
+    cancelAnimationFrame(frame);
+    previous = 0;
     if (visible && !document.hidden && !motion.matches && settings.speed > 0)
-      timer = window.setInterval(() => {
-        for (const cell of cells) if (cell.hot || Math.random()<0.04) {
-          cell.char = glyph();
-          cell.hot = !cell.hot && Math.random()<0.16;
-        }
-        paint();
-      }, 180/settings.speed);
+      frame = requestAnimationFrame(animate);
   }
   function burst(e: PointerEvent) {
-    if (motion.matches || settings.clickEffect !== 'burst') return;
+    if (!visible || motion.matches || settings.clickEffect !== 'burst') return;
     const r = container.getBoundingClientRect();
-    for (const cell of cells) if (Math.hypot(cell.x-e.clientX+r.left,cell.y-e.clientY+r.top)<72) cell.hot=true;
-    paint();
+    const x = e.clientX - r.left, y = e.clientY - r.top;
+    if (x < 0 || x > r.width || y < 0 || y > r.height) return;
+    const now = performance.now();
+    for (const cell of cells) {
+      const distance = Math.hypot(cell.x-x,cell.y-y);
+      if (distance < 72) changes.set(cell,{next:glyph(),start:now+distance*2});
+    }
   }
   const observer = new ResizeObserver(resize);
   const viewport = new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;sync()});
@@ -247,7 +267,7 @@ function drawCanvasFallback(container: HTMLElement, settings: Settings) {
   window.addEventListener('pointerdown',burst);
   resize();
   return () => {
-    window.clearInterval(timer); observer.disconnect(); viewport.disconnect();
+    cancelAnimationFrame(frame); observer.disconnect(); viewport.disconnect();
     document.removeEventListener('visibilitychange',sync); motion.removeEventListener('change',sync);
     window.removeEventListener('pointerdown',burst); canvas.remove();
   };
@@ -814,7 +834,7 @@ const LetterGlitch = ({
     const settle = (dt: number) => {
       const s = settingsRef.current;
       const tempo = Math.max(s.speed, 0.5);
-      const attack = 1 - Math.exp(-dt / 0.05);
+      const attack = 1 - Math.exp(-dt / 0.12);
       for (let k = 0; k < activeCount; ) {
         const i = active[k];
         if (delay[i] > 0) {
@@ -827,7 +847,7 @@ const LetterGlitch = ({
           hold[i] -= dt;
           h = s.smooth ? h + (peak[i] - h) * attack : peak[i];
         } else {
-          h = s.smooth ? h * Math.exp((-dt * 4) / Math.max(fade[i], 0.05)) : 0;
+          h = s.smooth ? h * Math.exp((-dt * 2.5) / Math.max(fade[i], 0.05)) : 0;
         }
         if (h < 0.012 && hold[i] <= 0) {
           release(k);

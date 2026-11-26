@@ -4,8 +4,8 @@ import ProfileCard from './ProfileCard';
 export function Hero() {
  return <section className="cover" aria-label="Introduction">
    <div className="hero-glitch" aria-hidden="true">
-     <LetterGlitch glitchColors={['#ffffff', '#61dca3']} glitchAmount={0.5}
-       speed={1} flow={0.5} clickEffect="burst" density={0.95} />
+     <LetterGlitch glitchColors={['#ffffff', '#61dca3']} glitchAmount={0.35}
+       smooth speed={0.65} flow={0.5} clickEffect="burst" density={0.95} />
    </div>
    <div className="mast"><a href="#top" className="monogram" aria-label="Shivam Mishra home">sm.</a><span>Engineering &amp; photography</span><a href={window.portfolioFiles?.["resume.pdf"] ?? "resume.pdf"} download="Shivam-Mishra-Resume.pdf">Résumé <small>PDF</small></a></div>
    <div className="hero-profile">

@@ -1,3 +1,4 @@
+import ClickSpark from '../src/ClickSpark';
 import FavoriteSongs from '../src/FavoriteSongs';
 import BranchedMenu from '../src/BranchedMenu';
 import FlowingMenu from '../src/FlowingMenu';
@@ -117,8 +118,13 @@ function Projects(){
  const dialog = useRef(null);
  const stage = useRef(null);
  const [folderSize, setFolderSize] = useState(1);
+ const [compact,setCompact] = useState(() => window.innerWidth <= 600);
  React.useLayoutEffect(() => {
-   const resize = () => setFolderSize(Math.min(1.65, (stage.current.clientWidth - 24) / 540));
+   const resize = () => {
+     const width = stage.current.clientWidth;
+     setCompact(width <= 600);
+     setFolderSize(Math.min(1.65, (width - 24) / 540));
+   };
    resize();
    const observer = new ResizeObserver(resize);
    observer.observe(stage.current);
@@ -145,9 +151,14 @@ function Projects(){
    <Title>Selected projects</Title>
    <div className="p-tabs"><Filters items={['All','Embedded','Backend','Web','AI-CV']} value={category} onChange={setCategory}/></div>
    <div ref={stage} className="project-folder">
-     <Folder key={category} mode="flap" variant="solid" color="#4385f5" paperColor="#ffffff"
+     {compact ? <details key={category} className="mobile-folder">
+       <summary>Projects <span>{items.length}</span></summary>
+       <ul>{items.map(item=><li key={item.project.id}>
+         <button type="button" onClick={()=>showProject(item)}>{item.project.cardTitle}<span aria-hidden="true">↗</span></button>
+       </li>)}</ul>
+     </details> : <Folder key={category} mode="flap" variant="solid" color="#4385f5" paperColor="#ffffff"
        theme="dark" size={folderSize} label="Projects" items={items} layout="spread"
-       closeOnOutsideClick={!selected} intro={false} zoomOnClick={false} onItemClick={showProject}/>
+       closeOnOutsideClick={!selected} intro={false} zoomOnClick={false} onItemClick={showProject}/>}
    </div>
    <dialog className="project-dialog" ref={dialog} aria-label={selected?.title || 'Project details'} onClose={()=>setSelected(null)}>
      <button className="project-close" onClick={()=>dialog.current.close()}>Close</button>
@@ -178,7 +189,7 @@ function ExperienceMenu() {
   const [entry,setEntry] = useState(() => experienceGroups[0].children.find(item => item.value === 'school'));
   return <div className="experience-browser">
     <BranchedMenu items={experienceGroups} defaultOpen={experienceGroups.map((_, index) => index)} defaultActive={entry.value}
-      width={240} rowHeight={36} indent={40} trunk={14} radius={10} lineWidth={1.5}
+      width={240} rowHeight={44} indent={40} trunk={14} radius={10} lineWidth={1.5}
       fontSize={14} drawDuration={400} foldDuration={300} onSelect={(_,item)=>setEntry(item)}/>
     <div className="experience-note" aria-live="polite">
       <h3>{entry.school ?? entry.label}</h3><p>{entry.detail}</p>

@@ -20,8 +20,11 @@ export function Hero() {
    <div className="cover-bottom"><h1 className="hero-heading">Shivam Mishra — Engineering and photography</h1><a href="#about">Meet Shivam <span aria-hidden="true">↓</span></a></div>
  </section>
 }
-const destinations = ['top', 'work', 'skills', 'photos', 'contact'];
-const labels = ['Home', 'Projects', 'Skills', 'Photos', 'Contact'];
+const destinations = [
+  ['top','Home'], ['about','Profile'], ['work','Projects'], ['skills','Skills'],
+  ['experience','Experience & education'], ['achievements','Achievements'],
+  ['activities','Activities'], ['photos','Photos'], ['music','Favorite songs'], ['contact','Contact']
+];
 
 export function Dock() {
   const [open, setOpen] = React.useState(false);
@@ -33,7 +36,7 @@ export function Dock() {
     function sync() {
       const line = Math.min(120, innerHeight / 4);
       let current = 0;
-      destinations.forEach((id, index) => {
+      destinations.forEach(([id], index) => {
         if (document.getElementById(id)?.getBoundingClientRect().top <= line) current = index;
       });
       setActive(current);
@@ -72,10 +75,10 @@ export function Dock() {
       <span className="menu-icon" aria-hidden="true" />{open ? 'Close' : 'Menu'}
     </button>
     <ul id="portfolio-links" className="menu-links" hidden={!open}>
-      {destinations.map((id, i) => <li key={id}>
+      {destinations.map(([id, label], i) => <li key={id}>
         <a href={'#' + id} aria-current={i === active ? 'location' : undefined}
           onClick={() => { setOpen(false); trigger.current.focus({preventScroll:true}); }}>
-          {labels[i]}
+          {label}
         </a>
       </li>)}
     </ul>

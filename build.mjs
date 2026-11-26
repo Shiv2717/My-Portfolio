@@ -6,7 +6,7 @@ const reactGlobal = {
   setup(builder) {
     builder.onResolve({ filter: /^react$/ }, () => ({ path: 'react', namespace: 'existing-react' }));
     builder.onLoad({ filter: /.*/, namespace: 'existing-react' }, () => ({
-      contents: 'export default window.React; export const {memo,Children,isValidElement,useLayoutEffect,useMemo,useEffect,useRef,useCallback,useState} = window.React;',
+      contents: 'export default window.React; export const {forwardRef,useImperativeHandle,memo,Children,isValidElement,useLayoutEffect,useMemo,useEffect,useRef,useCallback,useState} = window.React;',
     }));
   },
 };

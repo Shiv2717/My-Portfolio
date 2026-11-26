@@ -19,7 +19,7 @@ export function GalleryLink() {
   }
   return <><button type="button" className="dome-entry" aria-haspopup="dialog" onClick={showGallery}>
     <div className="dome-strip" aria-hidden="true">{[0, Math.floor(images.length / 2), images.length - 1].map(i=><img key={i} src={images[i].fullSrc} alt="" loading="lazy"/>)}</div>
-    <span className="dome-callout"><strong>Open photo gallery</strong><small>Color dome · Opens in a new tab</small></span>
+    <span className="dome-callout"><strong>Open photo gallery</strong><small>Explore the color dome</small></span>
   </button>
     <dialog ref={dialog} className="photo-dialog" aria-label="Photo gallery" onClose={()=>setOpen(false)}
       onCancel={event=>{if(dialog.current.querySelector('[data-enlarging="true"]')) event.preventDefault()}}>

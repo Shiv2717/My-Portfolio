@@ -234,22 +234,3 @@ main>#contact{background:#100e17;padding-block:clamp(3rem,8vw,8rem)}
 #contact :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .contact-form output:empty{display:none}
 @media(max-width:760px){.contact-panel{grid-template-columns:1fr}.contact-form{border-left:0;border-top:1px solid #453e48}}
-
-.signal-footer{position:relative;display:grid;place-items:center;isolation:isolate;max-width:none;padding:1rem 0 3.75rem;background:radial-gradient(ellipse at center,#211b2c,#111015 72%)}
-.footer-map{display:block;width:min(72%,660px);height:auto;pointer-events:none}
-.signal-footer-links{position:absolute;inset:0 7% auto;display:flex;justify-content:space-between;align-items:center;padding-top:1.5rem;color:#f5f2ed}
-.signal-footer-links a{padding:.5rem;text-underline-offset:4px}.signal-footer-links a:hover{text-decoration:underline}
-@media(max-width:700px){.signal-footer{padding-top:4.5rem}.footer-map{width:94%}.signal-footer-links{inset-inline:5%}}
-
-main>#contact{position:relative;isolation:isolate;display:grid;align-items:center;min-height:600px;border-top:0;background:linear-gradient(#141315,#100e17 25%,#100e17 75%,#111015)}
-#root{isolation:isolate}
-.page-terrain{position:fixed;inset:0;z-index:-1;pointer-events:none;background:#100e17}
-.page-terrain .topography-canvas{opacity:.78}
-main>section:not(.cover),main>#skills,main>#work,main>#music,main>#contact{background:transparent}
-main>#about{background:linear-gradient(to bottom,#111214,transparent min(22vh,170px))}
-#work .project-folder{background:transparent}
-#photos .dome-entry{opacity:.94}
-footer.signal-footer{background:linear-gradient(transparent,#100e1780)}
-#contact .contact-panel{background:rgba(23,21,30,.74)}
-#contact .contact-intro{background:linear-gradient(120deg,rgba(59,50,66,.65),rgba(33,29,40,.3))}
-.signal-footer{border-top:0;background:linear-gradient(#111015,transparent 35%),radial-gradient(ellipse at center,#211b2c,#111015 72%)}

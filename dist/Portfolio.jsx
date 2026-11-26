@@ -1,5 +1,3 @@
-import Topography from '../src/Topography';
-import SignalMap from '../src/SignalMap';
 import FavoriteSongs from '../src/FavoriteSongs';
 import BranchedMenu from '../src/BranchedMenu';
 import FlowingMenu from '../src/FlowingMenu';
@@ -164,7 +162,7 @@ function SkillsMenu() {
   return <>
     <div className="skill-menu-stage">
       <FlowingMenu items={skillMenuItems} speed={60} stretch={0.6} magnet={0.25}
-        followCursor={0.4} textColor="#ffffff" bgColor="transparent" marqueeBgColor="#ffffff"
+        followCursor={0.4} textColor="#ffffff" bgColor="#120F17" marqueeBgColor="#ffffff"
         marqueeTextColor="#120F17" activeIndex={selected} ariaLabel="Technical skills"
         onItemClick={(_,index)=>setSelected(current=>current === index ? -1 : index)}/>
     </div>
@@ -214,23 +212,7 @@ function Contact(){
    </div>
  </section>;
 }
-function PageTerrain() {
- const [visible,setVisible] = useState(false);
- useEffect(() => {
-   const hero = document.querySelector('main > .cover');
-   const observer = new IntersectionObserver(() => {
-     setVisible(hero.getBoundingClientRect().bottom < window.innerHeight - 1);
-   }, {threshold:[0, 0.98, 1]});
-   observer.observe(hero);
-   return () => observer.disconnect();
- }, []);
- return visible ? (<div className="page-terrain" aria-hidden="true">
-     <Topography color="#4f7cff" lineCount={22} lineWidth={1.2} elevation={1}
-       foreground={0.2} tilt={32} speed={0.25} direction="forward" glow={0.6}
-       depthOfField={0.4} fog={0.35} hoverEffect="lift" clickEffect="pulse"/>
-   </div>) : null;
-}
 function Portfolio(){
- return <><a className="skip" href="#about">Skip introduction</a><Dock/><PageTerrain/><main id="top"><Hero/><section id="about" className="block"><div className="profile-lead"><div className="profile-copy"><span className="over">Profile</span><h2>The person behind<br/><i>the projects.</i></h2><p className="bio-intro">I build across hardware and software, and photograph the world in between.</p></div><img className="profile-portrait" src={window.portfolioFiles?.["images/profile-portrait.jpg"] ?? "images/profile-portrait.jpg"} alt="Shivam Mishra" decoding="async" /></div><div className="bio"><p>I’m Shivam Kumar Mishra, an electronics and communication engineering student in Durgapur. I build connected devices and full-stack applications, and I’m interested in embedded systems and software roles.</p><p>Outside engineering, I hold an NCC Major rank and a Karate Black Belt. Photography gives me a reason to slow down and look closer.</p></div><small>English &nbsp; / &nbsp; Hindi &nbsp; / &nbsp; Bengali</small></section><Projects/><Engineering/><Activities/><section id="photos" className="block"><span className="over">BEHIND THE LENS</span><h2>Photography<span>.</span></h2><GalleryLink/></section><FavoriteSongs/><Contact/></main><footer className="signal-footer"><SignalMap grid="square" density={172} dotSize={0.39} rate={1.6} travel={1850} trail={0.31} rippleSize={1.6}/><div className="signal-footer-links"><span>Shivam Mishra</span><a href="#top">Back to top ↑</a></div></footer></>
+ return <><a className="skip" href="#about">Skip introduction</a><Dock/><main id="top"><Hero/><section id="about" className="block"><div className="profile-lead"><div className="profile-copy"><span className="over">Profile</span><h2>The person behind<br/><i>the projects.</i></h2><p className="bio-intro">I build across hardware and software, and photograph the world in between.</p></div><img className="profile-portrait" src={window.portfolioFiles?.["images/profile-portrait.jpg"] ?? "images/profile-portrait.jpg"} alt="Shivam Mishra" decoding="async" /></div><div className="bio"><p>I’m Shivam Kumar Mishra, an electronics and communication engineering student in Durgapur. I build connected devices and full-stack applications, and I’m interested in embedded systems and software roles.</p><p>Outside engineering, I hold an NCC Major rank and a Karate Black Belt. Photography gives me a reason to slow down and look closer.</p></div><small>English &nbsp; / &nbsp; Hindi &nbsp; / &nbsp; Bengali</small></section><Projects/><Engineering/><Activities/><section id="photos" className="block"><span className="over">BEHIND THE LENS</span><h2>Photography<span>.</span></h2><GalleryLink/></section><FavoriteSongs/><Contact/></main><footer>Shivam Mishra <a href="#top">Back to top ↑</a></footer></>
 }
 ReactDOM.createRoot(document.getElementById('root')).render(new URLSearchParams(location.search).get("gallery") === "photography" ? <PhotographyPage/> : <ClickSpark sparkColor="#dbad67"><Portfolio/></ClickSpark>);

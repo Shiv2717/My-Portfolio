@@ -10,25 +10,28 @@ import {Hero, Dock} from '../src/intro';
     {id:'pipeline', cardTitle:'Live AI inference', brief:'Streams model predictions from Kafka to a live client.', title:'Real-Time AI Inference Pipeline', type:'Systems engineering · 2025', categories:['Backend','AI-CV'], tags:['Kafka','Redis','FastAPI','WebSockets','Prometheus','Grafana'], description:'An asynchronous FastAPI service ingests events through Kafka and Redis Streams and sends predictions to clients over WebSockets. I packaged the services with Docker and used Prometheus to track throughput, latency and error rates.'},
     {id:'ecg', cardTitle:'ECG monitor', brief:'Captures heart signals and displays a live ECG waveform.', title:'Real-Time ECG Monitoring System', type:'Embedded systems · 2024–2025', categories:['Embedded','Backend','Web'], tags:['ESP32','AD8232','React','Node.js','MongoDB'], description:'An ESP32 reads an AD8232 ECG sensor and streams the signal over WebSocket to a React interface, where HTML5 Canvas draws the live waveform. A Node.js and Express backend calculates beats per minute and stores readings in MongoDB. Chart.js visualizes the readings and jsPDF generates reports on demand.'},
     {id:'verify', cardTitle:'VerifyAI', brief:'Checks text with BERT through a web app or browser extension.', title:'VerifyAI', type:'Machine learning', categories:['AI-CV','Backend','Web'], tags:['BERT','FastAPI','React','Chrome extension'], description:'A BERT-powered text verification project with a FastAPI backend, a React interface and a Chrome extension.'},
-    {id:'student', cardTitle:'StudentSphere', brief:'A student interface with rounded panels and bold layouts.', title:'StudentSphere', type:'Interface design', categories:['Web'], tags:['Web','Claymorphism','Neubrutalism'], description:'A student-focused web interface that pairs rounded claymorphic elements with bold neubrutalist layouts.'}
+    {id:'student', cardTitle:'StudentSphere', brief:'Student profiles, chat and feedback in a Firebase-backed platform.', title:'StudentSphere', type:'Interface design', categories:['Web'], tags:['Web','Claymorphism','Neubrutalism'], description:'Students sign in with Firebase Authentication, manage their profiles, chat and submit feedback. The interface supports dark mode.'}
   ];
   const smaller = [
-    ['Emotion detection CNN','AI-CV'],['Agricultural disease prediction','AI-CV'],['Travel agency app','Web'],['ALU design report','Embedded']
+    ['Emotion detection CNN','AI-CV'],['Agricultural disease prediction','AI-CV'],['Travel agency app','Web'],['ALU design report','Embedded'],
+    ['ReviewPilot','Web','Developers can connect a GitHub repository or submit its URL, then read feedback from the repository analysis.'],
+    ['Network Intrusion Detection System','AI-CV','A machine learning model flags potential network intrusions. A Streamlit app on IBM Cloud displays the results (2025).']
   ];
   const skills = [
     ['Embedded & Hardware','ESP32, Arduino, 8051, 8085/8086, PIC, AD8232, Digital electronics, VLSI basics, UART, I2C, SPI'],
-    ['Backend & Systems','FastAPI, Kafka, Redis, WebSockets, Docker, Prometheus, Node.js, Express.js, REST APIs, MongoDB, Kubernetes basics'],
-    ['Web','React, HTML5, CSS, JavaScript, Firebase'],['AI/ML','PyTorch, Hugging Face'],
-    ['Languages','Python, Java, C/C++, SQL'],['Tools','Git, GitHub, Copilot, Cursor, Proteus, Canva, Figma']
+    ['Backend & Systems','FastAPI, Kafka, Redis, WebSockets, Docker, Prometheus, Node.js, Express.js, REST APIs, MongoDB, Kubernetes basics, IBM Cloud'],
+    ['Web','React, HTML5, CSS, JavaScript, Firebase'],['AI/ML','PyTorch, Hugging Face, Streamlit'],
+    ['Languages','Python, Java, C/C++, SQL'],['Tools','Git, GitHub, Copilot, Cursor, Proteus, Canva, Figma'],
+    ['Professional skills','Teamwork, Communication, Leadership, Problem-solving, Adaptability, Time management']
   ];
   const experienceGroups = [
     {label:'Education', children:[
       {value:'btech',label:'B.Tech · ECE',school:'Dr. B. C. Roy Engineering College',detail:'B.Tech in Electronics and Communication Engineering · 2023–2027 · Durgapur, West Bengal'},
-      {value:'school',label:'Class X & XII',school:'Sudhir Memorial Institute Liluah',detail:'Class X · 2020 and Class XII · 2022 · Howrah, West Bengal'}
+      {value:'school',label:'Class X & XII',school:'Sudhir Memorial Institute Liluah',detail:'Class X · 78% (2020) and Class XII · 60% (2022) · Howrah, West Bengal'}
     ]},
     {label:'Internship & training', children:[
-      {value:'ibm',label:'AICTE Edunet / IBM',detail:'Artificial Intelligence Virtual Intern · Remote · Jan–Feb 2025. During this one-month AICTE Edunet Foundation internship in collaboration with IBM, I prepared data, trained supervised learning models and evaluated their performance. I also explored IBM Watson and cloud deployment workflows.'},
-      {value:'cttc',label:'CTTC Bhubaneswar',detail:'Embedded Systems Industrial Trainee · Bhubaneswar, Odisha · Jun–Jul 2024. I programmed PIC and Arduino microcontrollers, implemented UART, I2C and SPI communication modules, and tested circuits in Proteus.'}
+      {value:'ibm',label:'AICTE Edunet / IBM',detail:'Artificial Intelligence Virtual Intern · Remote · Jan–Feb 2025. During this one-month AICTE Edunet Foundation internship in collaboration with IBM, I prepared data, trained supervised learning models and evaluated their performance. I built a machine learning project using IBM Cloud and Streamlit and explored IBM Watson.'},
+      {value:'cttc',label:'CTTC Bhubaneswar',detail:'Embedded Systems Industrial Trainee · Bhubaneswar, Odisha · Jun–Jul 2024. I programmed PIC and Arduino microcontrollers, implemented UART, I2C and SPI communication modules, and designed, simulated and tested circuits in Proteus.'}
     ]},
     {label:'Hackathons', children:[
       {value:'sih',label:'Smart India Hackathon',detail:'Worked on a technology problem statement and submitted it for Smart India Hackathon.'},
@@ -42,7 +45,7 @@ import {Hero, Dock} from '../src/intro';
     ['Data structures & algorithms','I practice problem solving on LeetCode and GeeksforGeeks.'],
     ['Freelance development','I work directly with clients and take projects from requirements through delivery.']
   ];
-  const badges = [['NCC','Major rank'],['Karate','Black Belt'],['NIELIT','VLSI and Embedded Systems'],['NPTEL','Python Programming'],['GeeksforGeeks','Java Programming'],['Cyber Security Centre of Excellence & WEBEL','Cyber Security Basic Concepts'],['TCS iON','Certification']];
+  const badges = [['Google Developer Groups on Campus','Cloud Lead at BCREC'],['Google','Google Ambassador'],['GeeksforGeeks Campus','Campus Ambassador'],['Salesforce','Agentblazer Champion'],['NIELIT','VLSI and Embedded Systems'],['NPTEL','Python Programming'],['GeeksforGeeks','Java Programming'],['Cyber Security Centre of Excellence & WEBEL','Cyber Security Basic Concepts'],['TCS iON','Career Edge – Young Professional']];
   function renderPreview(id, canvas) {
     const ctx=canvas.getContext('2d');
     if(!ctx)return;
@@ -150,7 +153,7 @@ function Projects(){
      <button className="project-close" onClick={()=>dialog.current.close()}>Close</button>
      {selected && <ProjectCard p={selected} repo={repo}/>}
    </dialog>
-   {more.length > 0 && <details className="p-more"><summary>More projects</summary><ul>{more.map(([name,tag])=><li key={name}>{name}<span>{tag}</span></li>)}</ul></details>}
+   {more.length > 0 && <details className="p-more"><summary>More projects</summary><ul>{more.map(([name,tag,detail])=><li key={name}><div>{name}{detail && <p>{detail}</p>}</div><span>{tag}</span></li>)}</ul></details>}
  </section>;
 }
 const skillMenuItems = skills.map(([text, technologies]) => ({
@@ -231,6 +234,6 @@ function Contact(){
  </section>;
 }
 function Portfolio(){
- return <><a className="skip" href="#about">Skip introduction</a><Dock/><main id="top"><Hero/><section id="about" className="block"><div className="profile-lead"><div className="profile-copy"><span className="over">Profile</span><h2>The person behind<br/><i>the projects.</i></h2><p className="bio-intro">I build across hardware and software, and photograph the world in between.</p></div><img className="profile-portrait" src={window.portfolioFiles?.["images/profile-portrait.jpg"] ?? "images/profile-portrait.jpg"} alt="Shivam Mishra" decoding="async" /></div><div className="bio"><p>I’m Shivam Kumar Mishra, an electronics and communication engineering student in Durgapur. I build connected devices and full-stack applications, and I’m interested in embedded systems and software roles.</p><p>Outside engineering, I hold an NCC Major rank and a Karate Black Belt. Photography gives me a reason to slow down and look closer.</p></div><small>English &nbsp; / &nbsp; Hindi &nbsp; / &nbsp; Bengali</small></section><Projects/><Engineering/><Activities/><section id="photos" className="block"><span className="over">BEHIND THE LENS</span><h2>Photography<span>.</span></h2><GalleryLink/></section><FavoriteSongs/><Contact/></main><footer>Shivam Mishra <a href="#top">Back to top ↑</a></footer></>
+ return <><a className="skip" href="#about">Skip introduction</a><Dock/><main id="top"><Hero/><section id="about" className="block"><div className="profile-lead"><div className="profile-copy"><span className="over">Profile</span><h2>The person behind<br/><i>the projects.</i></h2><p className="bio-intro">I build across hardware and software, and photograph the world in between.</p></div><img className="profile-portrait" src={window.portfolioFiles?.["images/profile-portrait.jpg"] ?? "images/profile-portrait.jpg"} alt="Shivam Mishra" decoding="async" /></div><div className="bio"><p>I’m Shivam Kumar Mishra, a final-year electronics and communication engineering student in Durgapur. I build connected devices and full-stack applications, and I’m interested in embedded systems and software roles.</p><p>I lead cloud activities for Google Developer Groups on Campus at BCREC. Photography gives me a reason to slow down and look closer.</p></div><small>English &nbsp; / &nbsp; Hindi &nbsp; / &nbsp; Bengali</small></section><Projects/><Engineering/><Activities/><section id="photos" className="block"><span className="over">BEHIND THE LENS</span><h2>Photography<span>.</span></h2><GalleryLink/></section><FavoriteSongs/><Contact/></main><footer>Shivam Mishra <a href="#top">Back to top ↑</a></footer></>
 }
 ReactDOM.createRoot(document.getElementById('root')).render(new URLSearchParams(location.search).get("gallery") === "photography" ? <PhotographyPage/> : <ClickSpark sparkColor="#dbad67"><Portfolio/></ClickSpark>);

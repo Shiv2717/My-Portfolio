@@ -7,7 +7,7 @@ export function Hero() {
      <LetterGlitch glitchColors={['#ffffff', '#61dca3']} glitchAmount={0.35}
        smooth speed={0.65} flow={0.5} clickEffect="burst" density={0.95} />
    </div>
-   <div className="mast"><a href="#top" className="monogram" aria-label="Shivam Mishra home">sm.</a><span>Engineering &amp; photography</span><a href={window.portfolioFiles?.["resume.pdf"] ?? "resume.pdf"} download="Shivam-Mishra-Resume.pdf">Résumé <small>PDF</small></a></div>
+   <div className="mast"><a href="#top" className="monogram" aria-label="Shivam Mishra home">sm.</a><span>Engineering &amp; photography</span><a href={window.portfolioFiles?.["resume.pdf"] ?? "resume.pdf"} download="Shivam_Kumar_Mishra_Resume.pdf">Résumé <small>PDF</small></a></div>
    <div className="hero-profile">
      <ProfileCard name="Shivam Mishra" title="Electronics & Communication Engineering"
        handle="Shiv2717" status="Durgapur, India" statusColor="#d8b98c" contactText="Contact"

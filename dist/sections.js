@@ -19,7 +19,7 @@
     ['IBM','Virtual internship'],['CTTC Bhubaneswar','Industrial training in embedded protocols and VLSI'],
     ['Smart India Hackathon','Selected participant'],['Code for Change 2.0','Hackathon'],['Graph Hacks','Hackathon']
   ];
-  const badges = [['NCC','Major rank'],['Karate','Black Belt'],['NIELIT','VLSI & Embedded'],['NPTEL','Python'],['GeeksforGeeks','Java'],['CSCoE / WEBEL','Cyber Security'],['TCS iON','Certification']];
+  const badges = [['NIELIT','VLSI & Embedded'],['NPTEL','Python'],['GeeksforGeeks','Java'],['CSCoE / WEBEL','Cyber Security'],['TCS iON','Certification']];
   const chips = items => items.map(tag => '<span class="p-chip">'+tag+'</span>').join('');
   function renderPreview(id, canvas) {
     const ctx=canvas.getContext('2d');

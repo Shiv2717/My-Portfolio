@@ -187,13 +187,14 @@ function ExperienceMenu() {
 }
 function Accordion({items, section}) {
   const [expanded, setExpanded] = useState(null);
-  return <div className="portfolio-accordion">
+  const [hovered, setHovered] = useState(null);
+  return <div className="portfolio-accordion" onPointerLeave={()=>setHovered(null)}>
     {items.map(([title, detail], index) => {
-      const open = expanded === title;
+      const open = (hovered ?? expanded) === title;
       const panelId = section + '-detail-' + index;
-      return <article key={title}>
+      return <article key={title} onPointerEnter={event=>{if(section==="achievements" && event.pointerType==="mouse") setHovered(title)}}>
         <h3><button type="button" aria-expanded={open} aria-controls={panelId}
-          onClick={() => setExpanded(open ? null : title)}>
+          onClick={() => {setHovered(null);setExpanded(expanded === title ? null : title)}}>
           {title}<span className="accordion-chevron" aria-hidden="true"/>
         </button></h3>
         <div id={panelId} className="accordion-panel" data-open={open} aria-hidden={!open}>
@@ -207,6 +208,31 @@ function Activities(){return <section id="activities" className="p-section"><Tit
 function Engineering(){return <><section id="skills" className="p-section"><Title>Skills</Title><SkillsMenu/></section><section id="experience" className="p-section"><Title>Education, experience &amp; training</Title><ExperienceMenu/></section><section id="achievements" className="p-section"><Title>Achievements &amp; certifications</Title><Accordion items={badges} section="achievements"/></section></>}
 function Contact(){
  const [feedback,setFeedback]=useState('');
+ const trigger = useRef(null);
+ const dialog = useRef(null);
+ const animation = useRef(null);
+ const [open,setOpen] = useState(false);
+ function morph(closing) {
+   const panel = dialog.current;
+   animation.current?.cancel();
+   const from = trigger.current.getBoundingClientRect();
+   const to = panel.getBoundingClientRect();
+   const deltaX = from.left + from.width/2 - to.left - to.width/2;
+   const deltaY = from.top + from.height/2 - to.top - to.height/2;
+   const compact = {transform:`translate(${deltaX}px,${deltaY}px) scale(${from.width/to.width},${from.height/to.height})`,opacity:0.2};
+   const full = {transform:'none',opacity:1};
+   const effect = panel.animate(closing ? [full,compact] : [compact,full],{
+     duration:matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : closing ? 190 : 400,
+     easing:'cubic-bezier(.2,.8,.2,1)'
+   });
+   animation.current = effect;
+   if (closing) effect.onfinish = () => panel.close();
+ }
+ function showComposer() {
+   dialog.current.showModal();
+   setOpen(true);
+   morph(false);
+ }
  function compose(event){
  event.preventDefault();
  const data=new FormData(event.currentTarget);
@@ -224,12 +250,22 @@ function Contact(){
          <a href="https://www.linkedin.com/in/shivam-mishra-shivam2717">LinkedIn ↗</a>
        </div>
      </div>
+     <div className="contact-launch">
+       <button className="primary" ref={trigger} type="button" aria-haspopup="dialog" aria-expanded={open}
+         aria-controls="contact-composer" onClick={showComposer}>Write a message ↗</button>
+     </div>
+     <dialog id="contact-composer" className="contact-dialog" ref={dialog} aria-labelledby="composer-title"
+       onCancel={e=>{e.preventDefault();morph(true)}} onClose={()=>{setOpen(false);setFeedback('');trigger.current.focus({preventScroll:true})}}
+       onClick={e=>{if(e.target===dialog.current){const r=e.currentTarget.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)morph(true)}}}>
+     <div className="composer-heading"><h3 id="composer-title">Write a message</h3>
+       <button type="button" onClick={()=>morph(true)} aria-label="Close message form">×</button></div>
      <form onSubmit={compose} className="contact-form">
        <label>Your email<input type="email" name="email" autoComplete="email" required/></label>
        <label>Message<textarea name="message" required rows="4"/></label>
        <button type="submit" className="primary">Open email draft <span aria-hidden="true">↗</span></button>
        <output aria-live="polite">{feedback}</output>
      </form>
+     </dialog>
    </div>
  </section>;
 }

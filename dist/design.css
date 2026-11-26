@@ -247,3 +247,13 @@ main>#contact{background:#100e17;padding-block:clamp(3rem,8vw,8rem)}
 .accordion-panel>div{overflow:hidden;min-height:0}
 .accordion-panel p{padding:8px 12px 18px;color:#c9c3bc}
 @media(prefers-reduced-motion:reduce){.accordion-panel,.accordion-chevron{transition:none}}
+
+.contact-launch{display:grid;place-items:center;padding:clamp(24px,4vw,64px)}
+.contact-launch button{border-radius:99px;min-height:46px}
+.contact-dialog{box-sizing:border-box;width:min(440px,calc(100vw - 32px));max-height:85dvh;overflow:auto;margin:auto;padding:24px;border:1px solid #625966;border-radius:20px;color:#f5f2ed;background:#201c25;box-shadow:0 18px 80px #0008}
+.contact-dialog::backdrop{background:#100e17aa}
+.contact-dialog .contact-form{padding:0;border:0}
+.composer-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.composer-heading h3{margin:0}
+.composer-heading button{background:transparent;color:inherit;border:0;font-size:24px;width:44px;height:44px}
+body:has(.contact-dialog[open]){overflow:hidden}

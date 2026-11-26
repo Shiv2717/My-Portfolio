@@ -184,6 +184,75 @@ const smoother = (value: number) => {
   return x * x * x * (x * (x * 6 - 15) + 10);
 };
 
+// Keep the letter field visible on devices that cannot initialize WebGL.
+function drawCanvasFallback(container: HTMLElement, settings: Settings) {
+  const canvas = document.createElement('canvas');
+  canvas.className = 'letter-glitch-canvas';
+  canvas.setAttribute('aria-hidden', 'true');
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+  container.appendChild(canvas);
+  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  const size = settings.fontSize;
+  const step = Math.ceil(size * 1.35);
+  let cells: { x: number; y: number; char: string; alpha: number; hot: boolean }[] = [];
+  let visible = true;
+  let timer = 0;
+  const glyph = () => settings.characters[Math.floor(Math.random() * settings.characters.length)];
+  function paint() {
+    ctx!.clearRect(0, 0, canvas.width, canvas.height);
+    for (const cell of cells) {
+      ctx!.fillStyle = cell.hot ? settings.colors[settings.colors.length - 1] : settings.baseColor;
+      ctx!.globalAlpha = cell.hot ? 0.66 : cell.alpha;
+      ctx!.fillText(cell.char, cell.x, cell.y);
+    }
+    ctx!.globalAlpha = 1;
+  }
+  function resize() {
+    const bounds = container.getBoundingClientRect();
+    const ratio = Math.min(devicePixelRatio || 1, 2);
+    canvas.width = Math.round(bounds.width * ratio);
+    canvas.height = Math.round(bounds.height * ratio);
+    ctx!.setTransform(ratio, 0, 0, ratio, 0, 0);
+    ctx!.font = size + 'px ' + settings.fontFamily;
+    cells = [];
+    for (let y = size; y < bounds.height + size; y += step)
+      for (let x = 4; x < bounds.width; x += step)
+        if (Math.random() < settings.density)
+          cells.push({x, y, char: glyph(), alpha: 0.08 + Math.random()*0.16, hot: Math.random()<0.009});
+    paint();
+  }
+  function sync() {
+    window.clearInterval(timer);
+    if (visible && !document.hidden && !motion.matches && settings.speed > 0)
+      timer = window.setInterval(() => {
+        for (const cell of cells) if (cell.hot || Math.random()<0.04) {
+          cell.char = glyph();
+          cell.hot = !cell.hot && Math.random()<0.16;
+        }
+        paint();
+      }, 180/settings.speed);
+  }
+  function burst(e: PointerEvent) {
+    if (motion.matches || settings.clickEffect !== 'burst') return;
+    const r = container.getBoundingClientRect();
+    for (const cell of cells) if (Math.hypot(cell.x-e.clientX+r.left,cell.y-e.clientY+r.top)<72) cell.hot=true;
+    paint();
+  }
+  const observer = new ResizeObserver(resize);
+  const viewport = new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;sync()});
+  observer.observe(container); viewport.observe(container);
+  document.addEventListener('visibilitychange',sync);
+  motion.addEventListener('change',sync);
+  window.addEventListener('pointerdown',burst);
+  resize();
+  return () => {
+    window.clearInterval(timer); observer.disconnect(); viewport.disconnect();
+    document.removeEventListener('visibilitychange',sync); motion.removeEventListener('change',sync);
+    window.removeEventListener('pointerdown',burst); canvas.remove();
+  };
+}
+
 const compile = (gl: WebGL2RenderingContext, type: number, source: string) => {
   const shader = gl.createShader(type);
   if (!shader) return null;
@@ -284,10 +353,11 @@ const LetterGlitch = ({
       depth: false,
       stencil: false
     });
-    if (!container || !canvas || !gl) return undefined;
+    if (!container || !canvas) return;
+    if (!gl) return drawCanvasFallback(container, settingsRef.current);
 
     const program = link(gl);
-    if (!program) return undefined;
+    if (!program) return drawCanvasFallback(container, settingsRef.current);
     const u = program.uniforms;
     const vao = gl.createVertexArray();
     const makeTexture = () => {

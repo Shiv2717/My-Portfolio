@@ -35,32 +35,6 @@ main>section:not(.cover){padding-inline:max(6vw,calc((100% - 1220px)/2));width:1
   opacity: .74;
   mask-image: linear-gradient(to bottom, #0009, #000 22%, #000 66%, #0006);
 }
-.section-nav {
-  position: fixed; right: max(20px, env(safe-area-inset-right)); bottom: max(20px, env(safe-area-inset-bottom));
-  z-index: 9; display: block; width: auto;
-}
-.menu-trigger {
-  display: flex; align-items: center; justify-content: center; gap: .65rem; min-height: 44px;
-  padding: 0 18px; border: 1px solid #58544e; border-radius: 24px;
-  background: #201f20; color: #f6f2e9; font-size: .95rem; font-weight: 600; box-shadow: 0 3px 14px #0003;
-}
-.menu-icon { display: grid; gap: 4px; width: 16px; }
-.menu-icon::before,.menu-icon::after { content: ''; height: 2px; border-radius: 2px; background: #e5b778; }
-.menu-trigger[aria-expanded=true] .menu-icon::before { transform: translateY(3px) rotate(45deg); }
-.menu-trigger[aria-expanded=true] .menu-icon::after { transform: translateY(-3px) rotate(-45deg); }
-.menu-links {
-  position: absolute; right: 0; bottom: calc(100% + 8px); width: min(196px, calc(100vw - 40px));
-  max-height: calc(100dvh - 96px); overflow-y: auto; margin: 0; padding: 7px; list-style: none;
-  background: #eeeae2; color: #242221; border: 1px solid #bdb7ac; border-radius: 12px;
-  box-shadow: 0 10px 32px #0003;
-}
-.menu-links a { display: flex; align-items: center; justify-content: space-between; min-height: 44px;
-  padding: 0 12px; border-radius: 6px; font-size: 1rem; }
-.menu-links a[aria-current] { font-weight: 650; background: #ded8cc; }
-.menu-links a[aria-current]::after { content: ''; width: 6px; height: 6px; background: #765431; border-radius: 50%; }
-.menu-links a:hover,.menu-links a:focus-visible { background: #dfdad1; color: #151414; filter: none; }
-.menu-links a:focus-visible { outline: 2px solid #765431; outline-offset: -2px; }
-
 .hero-heading { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
 .cover .cover-bottom { bottom:max(26px, env(safe-area-inset-bottom)); align-items:center; justify-content:center; pointer-events:none; }
 .cover-bottom a { pointer-events:auto; }
@@ -265,7 +239,6 @@ body:has(.contact-dialog[open]){overflow:hidden}
 .mobile-folder ul{list-style:none;margin:0;padding:0 12px 12px}
 .mobile-folder li button{width:100%;min-height:48px;border:0;border-top:1px solid #465065;background:transparent;color:inherit;text-align:left;display:flex;justify-content:space-between;gap:12px}
 .mobile-folder li button span{color:var(--accent)}
-.menu-links{overscroll-behavior:contain}
 @media(max-width:600px){
   #work .project-folder{padding:12px 0;min-height:0}
   .p-tabs button,.project-close,.contact-socials a,.mast>a:last-child{min-height:44px}

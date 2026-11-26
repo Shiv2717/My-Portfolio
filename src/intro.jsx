@@ -1,3 +1,4 @@
+import PillNav from './PillNav';
 import LetterGlitch from './LetterGlitch';
 import ProfileCard from './ProfileCard';
 
@@ -26,11 +27,10 @@ const destinations = [
   ['activities','Activities'], ['photos','Photos'], ['music','Favorite songs'], ['contact','Contact']
 ];
 
+const items = destinations.map(([id, label]) => ({ href: '#' + id, label }));
+
 export function Dock() {
-  const [open, setOpen] = React.useState(false);
   const [active, setActive] = React.useState(0);
-  const trigger = React.useRef(null);
-  const nav = React.useRef(null);
 
   React.useEffect(() => {
     function sync() {
@@ -39,7 +39,7 @@ export function Dock() {
       destinations.forEach(([id], index) => {
         if (document.getElementById(id)?.getBoundingClientRect().top <= line) current = index;
       });
-      setActive(current);
+      setActive(Math.ceil(scrollY + innerHeight) >= document.documentElement.scrollHeight ? items.length - 1 : current);
     }
     sync();
     window.addEventListener('scroll', sync, {passive: true});
@@ -50,37 +50,11 @@ export function Dock() {
     };
   }, []);
 
-  React.useEffect(() => {
-    if (!open) return;
-    function outside(event) {
-      if (!nav.current?.contains(event.target)) setOpen(false);
-    }
-    document.addEventListener('pointerdown', outside);
-    document.addEventListener('focusin', outside);
-    return () => {
-      document.removeEventListener('pointerdown', outside);
-      document.removeEventListener('focusin', outside);
-    };
-  }, [open]);
-
-  return <nav ref={nav} className="section-nav" aria-label="Portfolio navigation"
-    onKeyDown={event => {
-      if (event.key === 'Escape') {
-        setOpen(false);
-        trigger.current.focus({preventScroll:true});
-      }
-    }}>
-    <button className="menu-trigger" ref={trigger} aria-expanded={open} aria-controls="portfolio-links"
-      onClick={() => setOpen(value => !value)}>
-      <span className="menu-icon" aria-hidden="true" />{open ? 'Close' : 'Menu'}
-    </button>
-    <ul id="portfolio-links" className="menu-links" hidden={!open}>
-      {destinations.map(([id, label], i) => <li key={id}>
-        <a href={'#' + id} aria-current={i === active ? 'location' : undefined}
-          onClick={() => { setOpen(false); trigger.current.focus({preventScroll:true}); }}>
-          {label}
-        </a>
-      </li>)}
-    </ul>
-  </nav>;
+  return <div className="portfolio-nav-wrap">
+    <PillNav className="portfolio-pill" logo={<span>sm.</span>} logoHref="#top"
+      logoAlt="Shivam Mishra home" ariaLabel="Portfolio sections" items={items}
+      activeHref={items[active].href} itemStyle="plain" hoverEffect="fill" indicator="dot"
+      layout="joined" surface="none" size="sm" collapse="never" highlightColor="#e5b778"
+      textColor="#ddd8d1" />
+  </div>;
 }

@@ -22,27 +22,27 @@ export function Hero() {
  </section>
 }
 const destinations = [
-  ['top','Home'], ['about','Profile'], ['work','Projects'], ['skills','Skills'],
-  ['experience','Experience & education'], ['achievements','Achievements'],
-  ['activities','Activities'], ['photos','Photos'], ['music','Favorite songs'], ['contact','Contact']
+  ['about', 'Profile'], ['work', 'Projects'], ['experience', 'Experience & education'],
+  ['photos', 'Photos'], ['contact', 'Contact']
 ];
-
 const items = destinations.map(([id, label]) => ({ href: '#' + id, label }));
 
 export function Dock() {
-  const [active, setActive] = React.useState(0);
-
+  const [active, setActive] = React.useState(-1);
   React.useEffect(() => {
+    const sections = destinations.map(([id]) => document.getElementById(id));
     function sync() {
-      const line = Math.min(120, innerHeight / 4);
-      let current = 0;
-      destinations.forEach(([id], index) => {
-        if (document.getElementById(id)?.getBoundingClientRect().top <= line) current = index;
+      // Include the scroll padding used when following the Meet Shivam link.
+      const threshold = (parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0) + 1;
+      let current = -1;
+      sections.forEach((section, index) => {
+        if (section && section.getBoundingClientRect().top <= threshold) current = index;
       });
-      setActive(Math.ceil(scrollY + innerHeight) >= document.documentElement.scrollHeight ? items.length - 1 : current);
+      if (Math.ceil(scrollY + innerHeight) >= document.documentElement.scrollHeight) current = items.length - 1;
+      setActive(current);
     }
     sync();
-    window.addEventListener('scroll', sync, {passive: true});
+    window.addEventListener('scroll', sync, { passive: true });
     window.addEventListener('resize', sync);
     return () => {
       window.removeEventListener('scroll', sync);
@@ -50,11 +50,10 @@ export function Dock() {
     };
   }, []);
 
+  if (active < 0) return null;
   return <div className="portfolio-nav-wrap">
-    <PillNav className="portfolio-pill" logo={<span>sm.</span>} logoHref="#top"
-      logoAlt="Shivam Mishra home" ariaLabel="Portfolio sections" items={items}
-      activeHref={items[active].href} itemStyle="plain" hoverEffect="fill" indicator="dot"
-      layout="joined" surface="none" size="sm" collapse="never" highlightColor="#e5b778"
-      textColor="#ddd8d1" />
+    <PillNav className="portfolio-pill" ariaLabel="Portfolio sections" items={items}
+      activeHref={items[active].href} layout="joined" surface="solid" size="sm"
+      collapse="always" intro={false} highlightColor="#e5b778" />
   </div>;
 }

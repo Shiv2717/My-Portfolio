@@ -819,7 +819,8 @@ const PillNav = ({
           aria-label={open ? 'Close menu' : 'Open menu'}
           onClick={toggle}
         >
-          <span className={BURGER} aria-hidden="true">
+          <span>{open ? 'Close' : 'Menu'}</span>
+            <span className={BURGER} aria-hidden="true">
             <span className={LINE_TOP} />
             <span className={LINE_BOTTOM} />
           </span>
